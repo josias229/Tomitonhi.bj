@@ -1,0 +1,440 @@
+:root {
+    --vert-benin: #008751;
+    /* Vert typique du Bénin */
+    --vert-clair: #e8f5e9;
+    --vert-fonce: #006341;
+    --beige: #f5f5dc;
+  }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+  }
+  
+  .bg-vert-benin {
+    background-color: var(--vert-benin);
+  }
+  
+  .text-vert-benin {
+    color: var(--vert-benin);
+  }
+  
+  .btn-vert {
+    background-color: var(--vert-benin);
+    color: white;
+    border: none;
+  }
+  
+  .btn-vert:hover {
+    background-color: var(--vert-fonce);
+    color: white;
+  }
+  
+  .top-bar {
+    font-size: 0.85rem;
+    background-color: var(--beige);
+  }
+  
+  .service-icon {
+    color: var(--vert-benin);
+    font-size: 1rem;
+  }
+  
+  .navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-bar .form-control:focus {
+    border-color: var(--vert-benin);
+    box-shadow: 0 0 0 0.25rem rgba(0, 135, 81, 0.25);
+  }
+  
+  .dropdown-mega {
+    border-top: 3px solid var(--vert-benin) !important;
+    margin-top: 8px !important;
+  }
+  
+  .categories-bar .nav-link {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  
+  .categories-bar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .hero-slide {
+    min-height: 500px;
+  }
+  
+  .fa,
+  .far,
+  .fas {
+    opacity: 0.9;
+  }
+  
+  .promo-card {
+    transition: transform 0.3s;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .promo-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .offcanvas {
+    max-width: 300px;
+  }
+  
+  @media (max-width: 991.98px) {
+    .hero-content {
+      text-align: center;
+      padding-top: 2rem;
+    }
+  }
+  
+  .hover-bg:hover {
+    background-color: rgba(0, 135, 81, 0.1);
+  }
+  
+  /* Ajoutez ces styles à votre feuille CSS existante */
+  .btn-outline-vert-benin {
+    color: var(--vert-benin);
+    border-color: var(--vert-benin);
+  }
+  
+  .btn-outline-vert-benin:hover {
+    background-color: var(--vert-benin);
+    color: white;
+  }
+  
+  /* Styles pour la section produits */
+  /* Animation pour le filtrage */
+  .product-item {
+    transition: all 0.3s ease;
+  }
+  
+  /* Style pour la modal */
+  #productModal .modal-dialog {
+    max-width: 900px;
+  }
+  
+  #productModal .modal-body {
+    padding: 2rem;
+  }
+  
+  #modal-product-image {
+    max-height: 400px;
+    object-fit: contain;
+  }
+  
+  .rating {
+    color: #ffc107;
+  }
+  
+  .product-card {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .rating {
+    color: #ffc107;
+  }
+  
+  .nav-pills .nav-link.active {
+    background-color: var(--vert-benin);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767.98px) {
+    .product-card .btn {
+      padding: 0.25rem;
+    }
+  }
+  
+  /* Styles complémentaires */
+  .btn-outline-vert-benin {
+    color: var(--vert-benin);
+    border-color: var(--vert-benin);
+  }
+  
+  .btn-outline-vert-benin:hover {
+    background-color: var(--vert-benin);
+    color: white;
+  }
+  
+  /* Styles spécifiques pour la newsletter */
+  .rounded-4 {
+    border-radius: 1rem !important;
+    /* Plus arrondi que rounded-3 */
+  }
+  
+  #newsletter-form .form-control {
+    border: 1px solid #dee2e6;
+    padding: 0.5rem 0.75rem;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  
+  #newsletter-form .form-control:focus {
+    border-color: var(--vert-benin);
+    box-shadow: 0 0 0 0.25rem rgba(0, 135, 81, 0.1);
+  }
+  
+  #newsletter-form .btn-vert {
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+  
+  .container {
+    max-width: 1200px;
+    /* Ou la valeur utilisée dans vos autres sections */
+  }
+  
+  .rounded-4 {
+    border-radius: 1rem !important;
+  }
+  
+  #newsletter-form .form-control {
+    border: 1px solid #dee2e6;
+    padding: 0.6rem 0.75rem;
+    /* Légère augmentation du padding */
+  }
+  
+  /* Adaptation responsive */
+  @media (min-width: 1200px) {
+    .col-xl-8 {
+      max-width: 1000px;
+      /* Valeur ajustable selon vos besoins */
+    }
+  }
+  
+  /* Ombre portée subtile */
+  .shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  .card {
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Styles footer */
+  .hover-opacity-100:hover {
+    opacity: 1 !important;
+    transition: opacity 0.2s ease;
+  }
+  
+  footer a.nav-link {
+    transition: all 0.2s ease;
+    color: white !important;
+  }
+  
+  
+  .primary-navbar {
+    font-size: 0.95rem;
+  }
+  
+  .btn-dark-green {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-dark-green:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-link {
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+  
+  .nav-link:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  .badge-notification {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    font-size: 0.6rem;
+    padding: 0.25em 0.4em;
+  }
+  
+  .categories-dropdown {
+    z-index: 1000;
+    left: 0;
+  }
+  
+  .hover-vert-benin:hover {
+    color: var(--bs-vert-benin) !important;
+    text-decoration: none;
+  }
+  
+  /* Transition pour une apparition/disparition fluide */
+  .categories-dropdown {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  
+  .categories-dropdown.d-none {
+    display: block !important;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .categories-dropdown:not(.d-none) {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Pour éviter les clignotements pendant les animations */
+  .primary-navbar {
+    position: relative;
+    z-index: 1000;
+  }
+  
+  .categories-dropdown {
+    position: absolute;
+    z-index: 999;
+  }
+  
+  .modern-profile-card {
+      display: flex;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+      max-width: 600px;
+      margin: 0 auto;
+  }
+  
+  .modern-profile-card:hover {
+      transform: translateY(-5px);
+  }
+  
+  .profile-image-wrapper {
+      position: relative;
+      width: 40%;
+      min-width: 200px;
+  }
+  
+  .profile-main-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+  }
+  
+  .profile-content {
+      padding: 25px;
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+  
+  .profile-name {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+      color: #333;
+  }
+  
+  .rating-badge {
+      background: #fff8e6;
+      padding: 8px 12px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 20px;
+  }
+  
+  .stars {
+      color: #ffc107;
+      margin-right: 8px;
+  }
+  
+  .rating-text {
+      font-size: 0.9rem;
+      color: #666;
+  }
+  
+  .profile-actions {
+      display: flex;
+      gap: 10px;
+  }
+  
+  .btn-follow, .btn-message {
+      padding: 8px 15px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+  }
+  
+  .btn-follow {
+      background: #4a6cf7;
+      color: white;
+  }
+  
+  .btn-message {
+      background: #f1f3f9;
+      color: #4a6cf7;
+  }
+  
+  .social-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
+      padding: 8px 15px;
+      border-radius: 30px;
+      display: flex;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .social-link {
+      color: #555;
+      transition: all 0.3s ease;
+  }
+  
+  .social-link:hover {
+      color: #4a6cf7;
+      transform: scale(1.2);
+  }
+
+  
