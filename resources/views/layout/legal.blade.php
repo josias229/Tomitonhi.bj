@@ -143,11 +143,62 @@
             width: 0%;
             transition: width 0.3s;
         }
+
+        /* Style pour le bouton ajouter au panier */
+        .add-to-cart {
+            transition: all 0.2s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #006a40 !important;
+            transform: translateY(-2px);
+        }
+
+        .add-to-cart.added {
+            background-color: #28a745 !important;
+        }
+
+        .add-to-cart.added::after {
+            content: "✓";
+            margin-left: 5px;
+        }
+
+        .animate-bounce {
+            animation: bounce 0.5s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 0.5s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
     </style>
 </head>
 
 <body>
-    
+
     <!-- Logo + Retour à l'accueil -->
     <nav class="navbar navbar-light bg-white">
         <div class="container">

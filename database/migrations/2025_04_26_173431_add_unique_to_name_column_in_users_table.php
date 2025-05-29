@@ -24,8 +24,12 @@ return new class extends Migration
      */
     public function down()
     {
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropUnique(['name']);
+        // });
         Schema::table('users', function (Blueprint $table) {
-            $table->dropUnique(['name']);
+            $table->unique('name', 'another_unique_index_name');
         });
+        
     }
 };

@@ -44,6 +44,7 @@ class Artisan extends Model
         return $this->hasMany(Produit::class, 'artisan_id', 'user_id');
     }
 
+    
     public function sousCommandes()
     {
         return $this->hasMany(SousCommande::class);

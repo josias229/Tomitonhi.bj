@@ -248,7 +248,7 @@ class RegisteredUserController extends Controller
     public function storeArtisan(Request $request): RedirectResponse
     {
         // dd($request->all());
-        
+
         \Log::debug('Données reçues:', $request->all());
 
         // Vérification des fichiers
@@ -257,7 +257,7 @@ class RegisteredUserController extends Controller
         }
 
         if (!$request->hasFile('rccm_file') || !$request->file('rccm_file')->isValid()) {
-            
+
             return back()->withErrors(['rccm_file' => 'Le fichier RCCM est invalide']);
         }
 
@@ -285,7 +285,7 @@ class RegisteredUserController extends Controller
 
         // Vérification de l'existence du RCCM
         if (Artisan::where('rccm', $validated['rccm'])->exists()) {
-            
+
             return back()->withErrors(['rccm' => 'Ce RCCM est déjà enregistré']);
         }
 
@@ -315,9 +315,11 @@ class RegisteredUserController extends Controller
         //     $productImages[] = $image->store('artisans/products');
         // }
 
+        // NOUVEAU : Stockage des images produits dans public
         $productImages = [];
         foreach ($request->file('product_images') as $image) {
-            $productImages[] = $image->store('private/artisans/products');
+            $path = $image->store("artisans/{$user->id}/products", 'public'); // Stockage public
+            $productImages[] = $path; // Chemin relatif direct (pas besoin de str_replace)
         }
 
         // Création du profil artisan
@@ -327,12 +329,10 @@ class RegisteredUserController extends Controller
             'ifu' => $validated['ifu'] ?? null,
             'atelier' => $validated['workshop_name'],
             'description' => $validated['description'],
-            // 'photo_profil' => $productImages[0] ?? null,
-            'photo_profil' => str_replace('private/', '', $productImages[0] ?? null),
+            'photo_profil' => $productImages[0] ?? null,
+            // 'photo_profil' => str_replace('private/', '', $productImages[0] ?? null),
             // 'galerie_photos' => json_encode($productImages),
-            'galerie_photos' => json_encode(array_map(function ($path) {
-                return str_replace('private/', '', $path);
-            }, $productImages)),
+            'galerie_photos' => json_encode($productImages), // Tableau de chemins directs
             'cni_path' => $idFilePath,
             'rccm_path' => $rccmFilePath
         ]);
@@ -343,7 +343,4 @@ class RegisteredUserController extends Controller
         return redirect()->route('verification.notice')
             ->with('success', 'Votre inscription artisan est en cours de validation!');
     }
-
-    
 }
-

@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="icon" href="{{ asset('favicon_io/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon_io/apple-touch-icon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
+
+
+
     <!-- Style -->
     <style>
         .rotating-promos {
@@ -175,10 +179,10 @@
         }
 
         /* Dans votre fichier CSS */
-        input:invalid,
+        /* input:invalid,
         select:invalid {
             border-color: #dc3545 !important;
-        }
+        } */
 
         input:invalid:focus,
         select:invalid:focus {
@@ -194,10 +198,45 @@
             font-size: 0.875em;
             margin-top: 0.25rem;
         }
+
+        /* Style pour le badge du panier */
+        .cart-badge {
+            transition: all 0.3s ease;
+            font-size: 0.6rem;
+            min-width: 1.2rem;
+            height: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #008751;
+            color: white;
+            border-radius: 50%;
+        }
+
+        /* Style pour le bouton ajouter au panier */
+        .add-to-cart {
+            transition: all 0.2s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #006a40 !important;
+            transform: translateY(-2px);
+        }
+
+        .add-to-cart.added {
+            background-color: #28a745 !important;
+        }
+
+        .add-to-cart.added::after {
+            content: "✓";
+            margin-left: 5px;
+        }
     </style>
 
-    @vite(['resources/css/legal.css', 'resources/js/legal.js'])
-    @vite(['resources/css/style.css', 'resources/js/script.js'])
+    {{-- @vite(['resources/css/legal.css', 'resources/js/legal.js']) --}}
+    @vite(['resources/css/legal.css'])
+    {{-- @vite(['resources/css/style.css', 'resources/js/script.js']) --}}
+    @vite(['resources/css/style.css'])
 
 
 
@@ -308,9 +347,10 @@
                             </a>
                             <a class='text-dark position-relative' href="{{ route('cart') }}">
                                 <i class="fas fa-shopping-cart fa-lg"></i>
-                                <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-vert-benin text-white"
-                                    style="font-size: 0.5rem;">3</span>
+                                <span class="cart-badge"
+                                    style="{{ count(session('cart', [])) > 0 ? 'display: flex;' : 'display: none;' }}">
+                                    {{ array_sum(array_column(session('cart', []), 'quantity')) }}
+                                </span>
                             </a>
                         </div>
                     @else
@@ -583,13 +623,12 @@
                             </a>
                         </div>
                         <div class="col-6 col-sm-4">
-                            <a href="#"
-                                class="d-flex align-items-center text-decoration-none text-dark p-2 rounded hover-bg">
-                                <img src="https://flagcdn.com/w20/gb.png" alt="EN" width="20"
-                                    class="me-2">
+                            <div class="d-flex align-items-center text-muted p-2 rounded" style="cursor: not-allowed; opacity: 0.6;">
+                                <img src="https://flagcdn.com/w20/gb.png" alt="EN" width="20" class="me-2">
                                 English
-                            </a>
-                        </div>
+                                <small class="ms-2 fst-italic">(Bientôt disponible)</small>
+                            </div>
+                        </div>                        
                         <!-- Ajoutez d'autres langues ici -->
                     </div>
                 </div>
@@ -602,6 +641,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-0">
+                    <h5 class="modal-title" id="modal-product-title"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -611,21 +651,19 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex justify-content-between align-items-start mb-2">
-                                <span class="badge bg-vert-benin" id="modal-product-category">Textiles</span>
-                                <div class="rating text-warning" id="modal-product-rating">
+                                <span class="badge bg-vert-benin" id="modal-product-category"></span>
+                                <div class="rating text-warning">
                                     <i class="fas fa-star"></i>
                                     <span>4.8</span>
                                 </div>
                             </div>
-                            <h3 class="h4" id="modal-product-title">Tissu Batik "Fleur du Bénin"</h3>
-                            <p class="text-muted mb-3" id="modal-product-artisan">Par <a href="#"
-                                    class="text-vert-benin">Adijatou la
-                                    Tisserande</a></p>
+                            <p class="text-muted mb-3">Par <span class="text-vert-benin"
+                                    id="modal-product-artisan"></span></p>
 
                             <div class="mb-4">
-                                <h4 class="h5 text-success" id="modal-product-price">12 500 FCFA</h4>
+                                <h4 class="h5 text-success" id="modal-product-price"></h4>
                                 <p class="text-muted mb-0" id="modal-product-original-price" style="display: none;">
-                                    <del>35 000 FCFA</del>
+                                    <del></del>
                                 </p>
                             </div>
 
@@ -638,15 +676,12 @@
                                         min="1">
                                     <button class="btn btn-outline-secondary" type="button">+</button>
                                 </div>
-                                <button class="btn btn-vert flex-grow-1">
+                                <form action="{{ route('cart.add', $produit->id) }}" method="POST">
+                                    @csrf
+                                <button type="submit" class="btn btn-vert flex-grow-1 add-to-cart">
                                     <i class="fas fa-cart-plus me-2"></i> Ajouter au panier
                                 </button>
-                            </div>
-
-                            <div class="border-top pt-3">
-                                <h5 class="h6">Livraison internationale</h5>
-                                <p class="small text-muted">Expédition sous 2-3 jours ouvrés. Délai de livraison: 5-10
-                                    jours.</p>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -772,8 +807,8 @@
                                 <div class="mb-3">
                                     <label class="form-label">WhatsApp*</label>
                                     <div class="input-group">
-                                        <span class="input-group-text">+229</span>
-                                        <input id="whatsapp" type="tel"
+                                        {{-- <span class="input-group-text">+229</span> --}}
+                                        <input id="whatsapp" type="tel" 
                                             class="form-control @error('whatsapp') is-invalid @enderror"
                                             name="whatsapp" value="{{ old('whatsapp') }}" required>
                                     </div>
@@ -1285,8 +1320,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Description courte*</label>
-                                        <textarea class="form-control @error('description') is-invalid @enderror" rows="3" name="description" id="descriptionform"
-                                            maxlength="200" required>{{ old('description') }}</textarea>
+                                        <textarea class="form-control @error('description') is-invalid @enderror" rows="3" name="description"
+                                            id="descriptionform" maxlength="200" required>{{ old('description') }}</textarea>
                                         <small class="text-muted">200 caractères max</small>
                                         @error('description')
                                             <span class="invalid-feedback" role="alert">
@@ -1372,7 +1407,7 @@
 
 
     @yield('main-content')
-    
+
     <!-- Section Footer -->
     <footer class="py-5 bg-vert-benin text-white pt-5 mt-4">
         <div class="container">
@@ -1509,7 +1544,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="script.js" defer></script>
+    {{-- <script src="script.js" defer></script> --}}
 
     <script>
         // Variables globales
@@ -1800,9 +1835,7 @@
                         showError(field, `Vous devez accepter ${fieldLabel}`);
                         return false;
                     }
-                } 
-                
-                else {
+                } else {
                     const value = field.value ? field.value.trim() : '';
                     console.log(field);
                     console.log(`Validation ${fieldId}:`, value);
@@ -2091,6 +2124,84 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var productModal = document.getElementById('productModal');
+
+            productModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget; // Bouton qui a déclenché le modal
+
+                // Récupérer les données des attributs data
+                var name = button.getAttribute('data-name');
+                var category = button.getAttribute('data-category');
+                var artisan = button.getAttribute('data-artisan');
+                var description = button.getAttribute('data-description');
+                var price = button.getAttribute('data-price');
+                var promo = button.getAttribute('data-promo');
+                var image = button.getAttribute('data-image');
+
+                // Mettre à jour le contenu du modal
+                document.getElementById('modal-product-title').textContent = name;
+                document.getElementById('modal-product-category').textContent = category;
+                document.getElementById('modal-product-artisan').textContent = artisan;
+                document.getElementById('modal-product-description').textContent = description;
+                document.getElementById('modal-product-image').src = image;
+                document.getElementById('modal-product-image').alt = name;
+
+                // Gestion des prix
+                if (promo) {
+                    document.getElementById('modal-product-price').textContent = promo + ' FCFA';
+                    document.querySelector('#modal-product-original-price del').textContent = price +
+                        ' FCFA';
+                    document.getElementById('modal-product-original-price').style.display = 'block';
+                } else {
+                    document.getElementById('modal-product-price').textContent = price + ' FCFA';
+                    document.getElementById('modal-product-original-price').style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const personalCard = document.querySelector('.personal-info-card');
+        if (!personalCard) return;
+    
+        // Liste des IDs à initialiser avec intlTelInput
+        const telFieldIds = ["telephone", "whatsapp"];
+    
+        telFieldIds.forEach(function (id) {
+            const telInput = personalCard.querySelector("#" + id);
+            if (telInput) {
+                window.intlTelInput(telInput, {
+                    initialCountry: "auto",
+                    geoIpLookup: function (success, failure) {
+                        fetch("https://ipinfo.io/json?token=4f10d201f85304")
+                            .then(resp => resp.json())
+                            .then(resp => success(resp.country))
+                            .catch(() => success("fr"));
+                    },
+                    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+                });
+            }
+        });
+    
+        // Désactiver certains champs (sauf le champ WhatsApp)
+        const fieldsToDisable = personalCard.querySelectorAll(
+            'input[name="nom"], input[name="email"]'
+        );
+    
+        fieldsToDisable.forEach(input => {
+            input.setAttribute('readonly', true);
+            input.classList.add('bg-light');
+        });
+    });
+    </script>
+    
+
 </body>
 
 </html>

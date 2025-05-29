@@ -32,7 +32,8 @@
                                 <p class="mb-4">Des pièces uniques tissées à la main par nos artisans talentueux,
                                     héritiers d'un
                                     savoir-faire ancestral.</p>
-                                <a href="#" class="btn btn-warning rounded-pill px-4 text-white">Voir la collection</a>
+                                <a href="#" class="btn btn-warning rounded-pill px-4 text-white">Voir la
+                                    collection</a>
                             </div>
                             <div class="col-md-6">
                                 <img src="images/test-picture-local.jpg" class="img-fluid" alt="Artisanat">
@@ -111,191 +112,90 @@
                     <h2 class="h3 mb-1">Nos produits phares</h2>
                     <p class="text-muted mb-md-0">Découvrez les meilleures créations artisanales du Bénin</p>
                 </div>
-                <div class="mt-3 mt-md-0">
-                    <ul class="nav nav-pills" id="product-filters">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" data-filter="all">Tous</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-filter="textiles">Textiles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-filter="sculptures">Sculptures</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-filter="bijoux">Bijoux</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
-            <!-- Grille de produits -->
-            <div class="row g-4" id="products-grid">
-                <!-- Produit 1 -->
-                <div class="col-6 col-md-4 col-lg-3 product-item" data-category="textiles">
-                    <div class="card product-card h-100 border-0 bg-transparent">
-                        <div class="position-relative">
-                            <img src="images/Tomitonhi-Test.jpg" class="card-img-top rounded" alt="Tissu Batik">
-                            <button
-                                class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <span
-                                class="position-absolute top-0 start-0 bg-success text-white small p-1 px-2 m-2 rounded">En
-                                stock</span>
-                        </div>
-                        <div class="card-body px-0 py-2">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small">Textiles</span>
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-dark">4.8</span>
-                                </div>
-                            </div>
-                            <h3 class="h6 card-title mb-1">Tissu Batik "Fleur du Bénin"</h3>
-                            <p class="card-text text-success mb-1">12 500 FCFA</p>
-                            <div class="d-flex gap-2 mt-3">
-                                <button class="btn btn-sm btn-outline-secondary flex-grow-1 view-product"
-                                    data-bs-toggle="modal" data-bs-target="#productModal"
-                                    data-title="Tissu Batik 'Fleur du Bénin'" data-price="12500"
-                                    data-category="Textiles" data-rating="4.8" data-image="images/lapin1.jpg"
-                                    data-description="Tissu traditionnel béninois fabriqué à la main selon la technique ancestrale du batik. 100% coton bio."
-                                    data-artisan="Adijatou la Tisserande">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="btn btn-sm btn-vert flex-grow-1">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Grille de produits aléatoires -->
+            <div class="row g-4">
+                @php
+                    // Récupérer 4 produits actifs aléatoires
+                    $produitsPhares = App\Models\Produit::where('est_actif', true)->inRandomOrder()->take(4)->get();
+                @endphp
 
-                <!-- Produit 2 -->
-                <div class="col-6 col-md-4 col-lg-3 product-item" data-category="sculptures">
-                    <div class="card product-card h-100 border-0 bg-transparent">
-                        <div class="position-relative">
-                            <img src="images/Tomitonhi-Test.jpg" class="card-img-top rounded" alt="Sculpture">
-                            <button
-                                class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <span
-                                class="position-absolute top-0 start-0 bg-danger text-white small p-1 px-2 m-2 rounded">-15%</span>
-                        </div>
-                        <div class="card-body px-0 py-2">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small">Sculpture</span>
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-dark">4.9</span>
-                                </div>
-                            </div>
-                            <h3 class="h6 card-title mb-1">Statuette "Génie protecteur"</h3>
-                            <p class="card-text text-success mb-1">
-                                <span class="text-decoration-line-through text-muted small me-1">35 000 FCFA</span>
-                                29 750 FCFA
-                            </p>
-                            <div class="d-flex gap-2 mt-3">
-                                <button class="btn btn-sm btn-outline-secondary flex-grow-1 view-product"
-                                    data-bs-toggle="modal" data-bs-target="#productModal"
-                                    data-title="Statuette 'Génie protecteur'" data-price="29750"
-                                    data-original-price="35000" data-category="Sculptures" data-rating="4.9"
-                                    data-image="images/lapin1.jpg"
-                                    data-description="Sculpture en bois d'ébène réalisée par Koffi, maître sculpteur d'Abomey. Pièce unique inspirée des légendes fon."
-                                    data-artisan="Koffi le Sculpteur">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="btn btn-sm btn-vert flex-grow-1">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @foreach ($produitsPhares as $produit)
+                    <div class="col-6 col-md-4 col-lg-3 product-item">
+                        <div class="card product-card h-100 border-0 bg-transparent">
+                            <div class="position-relative">
+                                @if ($produit->photos->count() > 0)
+                                    @if (str_contains($produit->photos->first()->url, 'https://'))
+                                        <img src="{{ $produit->photos->first()->url }}" class="card-img-top rounded"
+                                            alt="{{ $produit->nom }}">
+                                    @else
+                                        <img src="{{ Storage::url($produit->photos->first()->url) }}"
+                                            class="card-img-top rounded" alt="{{ $produit->nom }}">
+                                    @endif
+                                @else
+                                    <img src="https://picsum.photos/id/{{ rand(1, 1000) }}/600/600"
+                                        class="card-img-top rounded" alt="{{ $produit->nom }}">
+                                @endif
 
-                <!-- Produit 3 -->
-                <div class="col-6 col-md-4 col-lg-3 product-item" data-category="textiles">
-                    <div class="card product-card h-100 border-0 bg-transparent">
-                        <div class="position-relative">
-                            <img src="images/Tomitonhi-Test.jpg" class="card-img-top rounded" alt="Tissu Batik">
-                            <button
-                                class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <span
-                                class="position-absolute top-0 start-0 bg-success text-white small p-1 px-2 m-2 rounded">En
-                                stock</span>
-                        </div>
-                        <div class="card-body px-0 py-2">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small">Textiles</span>
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-dark">4.8</span>
-                                </div>
-                            </div>
-                            <h3 class="h6 card-title mb-1">Tissu Batik "Fleur du Bénin"</h3>
-                            <p class="card-text text-success mb-1">12 500 FCFA</p>
-                            <div class="d-flex gap-2 mt-3">
-                                <button class="btn btn-sm btn-outline-secondary flex-grow-1 view-product"
-                                    data-bs-toggle="modal" data-bs-target="#productModal"
-                                    data-title="Tissu Batik 'Fleur du Bénin'" data-price="12500"
-                                    data-category="Textiles" data-rating="4.8" data-image="images/lapin1.jpg"
-                                    data-description="Tissu traditionnel béninois fabriqué à la main selon la technique ancestrale du batik. 100% coton bio."
-                                    data-artisan="Adijatou la Tisserande">
-                                    <i class="fas fa-eye"></i>
+                                <button
+                                    class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
+                                    <i class="far fa-heart"></i>
                                 </button>
-                                <button class="btn btn-sm btn-vert flex-grow-1">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Produit 4 -->
-                <div class="col-6 col-md-4 col-lg-3 product-item" data-category="bijoux">
-                    <div class="card product-card h-100 border-0 bg-transparent">
-                        <div class="position-relative">
-                            <img src="images/Tomitonhi-Test.jpg" class="card-img-top rounded" alt="Sculpture">
-                            <button
-                                class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <span
-                                class="position-absolute top-0 start-0 bg-danger text-white small p-1 px-2 m-2 rounded">-15%</span>
-                        </div>
-                        <div class="card-body px-0 py-2">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small">Sculpture</span>
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-dark">4.9</span>
-                                </div>
+                                <span
+                                    class="position-absolute top-0 start-0 bg-success text-white small p-1 px-2 m-2 rounded">
+                                    {{ $produit->stock > 0 ? 'En stock' : 'Rupture' }}
+                                </span>
                             </div>
-                            <h3 class="h6 card-title mb-1">Statuette "Génie protecteur"</h3>
-                            <p class="card-text text-success mb-1">
-                                <span class="text-decoration-line-through text-muted small me-1">35 000 FCFA</span>
-                                29 750 FCFA
-                            </p>
-                            <div class="d-flex gap-2 mt-3">
-                                <button class="btn btn-sm btn-outline-secondary flex-grow-1 view-product"
-                                    data-bs-toggle="modal" data-bs-target="#productModal"
-                                    data-title="Statuette 'Génie protecteur'" data-price="29750"
-                                    data-original-price="35000" data-category="Sculptures" data-rating="4.9"
-                                    data-image="images/lapin1.jpg"
-                                    data-description="Sculpture en bois d'ébène réalisée par Koffi, maître sculpteur d'Abomey. Pièce unique inspirée des légendes fon."
-                                    data-artisan="Koffi le Sculpteur">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="btn btn-sm btn-vert flex-grow-1">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
+
+                            <div class="card-body px-0 py-2">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted small">{{ $produit->categorie->nom }}</span>
+                                    <div class="rating small text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <span class="text-dark">4.7</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="h6 card-title mb-1">{{ $produit->nom }}</h3>
+
+                                @if ($produit->prix_promo)
+                                    <p class="card-text text-success mb-1">
+                                        <span class="text-decoration-line-through text-muted small me-2">
+                                            {{ number_format($produit->prix, 0, ',', ' ') }} FCFA
+                                        </span>
+                                        {{ number_format($produit->prix_promo, 0, ',', ' ') }} FCFA
+                                    </p>
+                                @else
+                                    <p class="card-text text-success mb-1">
+                                        {{ number_format($produit->prix, 0, ',', ' ') }} FCFA
+                                    </p>
+                                @endif
+
+                                <div class="d-flex gap-2 mt-3">
+                                    <button class="btn btn-sm btn-outline-secondary flex-grow-1 view-product"
+                                        data-bs-toggle="modal" data-bs-target="#productModal"
+                                        data-name="{{ $produit->nom }}" data-category="{{ $produit->categorie->nom }}"
+                                        data-artisan="{{ $produit->artisan->user->name }}"
+                                        data-description="{{ $produit->description }}"
+                                        data-price="{{ number_format($produit->prix, 0, ',', ' ') }}"
+                                        data-promo="{{ $produit->prix_promo ? number_format($produit->prix_promo, 0, ',', ' ') : '' }}"
+                                        data-image="{{ $produit->photos->count() > 0 ? Storage::url($produit->photos->first()->url) : 'https://picsum.photos/id/' . rand(1, 1000) . '/600/600' }}">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+
+                                    <form action="{{ route('cart.add', $produit->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-vert flex-grow-1">
+                                            <i class="fas fa-cart-plus"></i> Ajouter
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
 
             <!-- Bouton "Voir plus" centré -->
@@ -314,120 +214,63 @@
             <div class="row mb-4">
                 <div class="col-md-8">
                     <h2 class="h3">Découvrez nos artisans d'exception</h2>
-                    <p class="mb-0">Des créations uniques directement des mains talentueuses de nos artisans béninois
-                    </p>
+                    <p class="mb-0">Des créations uniques directement des mains talentueuses de nos artisans béninois</p>
                 </div>
                 <div class="col-md-4 text-md-end">
-                    <a href="#" class="btn btn-outline-vert-benin">Voir tous les artisans →</a>
+                    <a href="{{ route('artisan') }}" class="btn btn-outline-vert-benin">Voir tous les artisans →</a>
                 </div>
             </div>
 
             <!-- Cartes Artisans -->
             <div class="row g-4">
-                <!-- Artisan 1 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="position-relative">
-                            <img src="images/artisan-local.jpeg" class="card-img-top" alt="Artisan">
-                            <span
-                                class="position-absolute top-0 end-0 bg-vert-benin text-white small p-2">Cotonou</span>
-                        </div>
-                        <div class="card-body">
-                            <h3 class="h5 card-title">Adijatou la Tisserande</h3>
-                            <p class="card-text small text-muted">Spécialiste des tissus traditionnels en coton bio
-                                depuis 15 ans</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span class="text-dark ms-1">(42)</span>
+                @foreach ($artisansPopulaires as $artisan)
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="position-relative">
+                                @if ($artisan->artisan && $artisan->artisan->photo_profil)
+                                    @if (str_contains($artisan->artisan->photo_profil, 'https://'))
+                                        <img src="{{ $artisan->artisan->photo_profil }}"
+                                            class="profile-main-image" alt="Portrait {{ $artisan->name }}">
+                                    @else
+                                        <img src="{{ Storage::url($artisan->artisan->photo_profil) }}"
+                                            class="profile-main-image" alt="Portrait {{ $artisan->name }}">
+                                    @endif
+                                @else
+                                    <img src="https://picsum.photos/id/{{ rand(1, 1000) }}/600/600" class="card-img-top" alt="Artisan">
+                                @endif
+                            
+                                @if ($artisan->ville)
+                                    <span class="position-absolute top-0 end-0 bg-vert-benin text-white small p-2">{{ $artisan->ville }}</span>
+                                @endif
+                            </div>
+                            <div class="card-body">
+                                <h3 class="h5 card-title">{{ $artisan->name }}</h3>
+                                <p class="card-text small text-muted">
+                                    @if ($artisan->artisan && $artisan->artisan->description)
+                                        {{ Str::limit($artisan->artisan->description, 70) }}
+                                    @else
+                                        Artisan talentueux du Bénin
+                                    @endif
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="rating small text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <span class="text-dark ms-1">
+                                            @if ($artisan->artisan && $artisan->artisan->note_moyenne > 0)
+                                                {{ number_format($artisan->artisan->note_moyenne, 1) }}
+                                                ({{ $artisan->artisan->produits->count() }})
+                                            @else
+                                                Nouveau
+                                            @endif
+                                        </span>
+                                    </div>
+                                    <a href="{{ route('details-artisans', ['artisan' => $artisan->id]) }}"
+                                        class="btn btn-sm btn-vert">Voir boutique</a>
                                 </div>
-                                <a class='btn btn-sm btn-vert' href='/artisans-details'>Voir boutique</a>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Artisan 2 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="position-relative">
-                            <img src="images/artisan-local.jpeg" class="card-img-top" alt="Sculpteur">
-                            <span class="position-absolute top-0 end-0 bg-vert-benin text-white small p-2">Abomey</span>
-                        </div>
-                        <div class="card-body">
-                            <h3 class="h5 card-title">Koffi le Sculpteur</h3>
-                            <p class="card-text small text-muted">Maître sculpteur sur bois, héritier d'une tradition
-                                familiale</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="text-dark ms-1">(36)</span>
-                                </div>
-                                <a class='btn btn-sm btn-vert' href='/artisans-details'>Voir boutique</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Artisan 3 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="position-relative">
-                            <img src="images/artisan-local.jpeg" class="card-img-top" alt="Savonnière">
-                            <span class="position-absolute top-0 end-0 bg-vert-benin text-white small p-2">Ouidah</span>
-                        </div>
-                        <div class="card-body">
-                            <h3 class="h5 card-title">Mariam la Savonnière</h3>
-                            <p class="card-text small text-muted">Savons naturels à base de karité et plantes locales
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-dark ms-1">(58)</span>
-                                </div>
-                                <a class='btn btn-sm btn-vert' href='/artisans-details'>Voir boutique</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Artisan 4 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="position-relative">
-                            <img src="images/artisan-local.jpeg" class="card-img-top" alt="Joaillier">
-                            <span
-                                class="position-absolute top-0 end-0 bg-vert-benin text-white small p-2">Porto-Novo</span>
-                        </div>
-                        <div class="card-body">
-                            <h3 class="h5 card-title">Yves le Joaillier</h3>
-                            <p class="card-text small text-muted">Créations uniques en argent et pierres locales</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span class="text-dark ms-1">(29)</span>
-                                </div>
-                                <a class='btn btn-sm btn-vert' href='/artisans-details'>Voir boutique</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -437,124 +280,70 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="h3">Produits tendances cette semaine</h2>
-                <a href="#" class="btn btn-outline-vert-benin">Explorer plus →</a>
+                <a href="{{ route('produits') }}" class="btn btn-outline-vert-benin">Explorer plus →</a>
             </div>
 
             <div class="row g-4">
-                <!-- Produit 1 -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card product-card h-100 border-0 bg-transparent">
-                        <div class="position-relative">
-                            <img src="images/test-picture-local.jpg" class="card-img-top rounded" alt="Tissu Batik">
-                            <button
-                                class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="card-body px-0 py-2">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small">Textiles</span>
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-dark">4.8</span>
-                                </div>
-                            </div>
-                            <h3 class="h6 card-title mb-1">Tissu Batik "Fleur du Bénin"</h3>
-                            <p class="card-text text-success mb-1">12 500 FCFA</p>
-                            <button class="btn btn-sm btn-vert w-100 mt-2">
-                                <i class="fas fa-cart-plus me-1"></i> Ajouter
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                @foreach ($produitsTendances as $produit)
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card product-card h-100 border-0 bg-transparent">
+                            <div class="position-relative">
+                                @if ($produit->photos->first())
+                                    <img src="{{ Storage::url($produit->photos->first()->url) }}"
+                                        class="card-img-top rounded" alt="{{ $produit->nom }}">
+                                @else
+                                    <img src="{{ asset('images/placeholder-product.jpg') }}" class="card-img-top rounded"
+                                        alt="Image non disponible">
+                                @endif
 
-                <!-- Produit 2 -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card product-card h-100 border-0 bg-transparent">
-                        <div class="position-relative">
-                            <img src="images/test-picture-local.jpg" class="card-img-top rounded" alt="Sculpture">
-                            <button
-                                class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <span
-                                class="position-absolute top-0 start-0 bg-success text-white small p-1 px-2 m-2 rounded">-15%</span>
-                        </div>
-                        <div class="card-body px-0 py-2">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small">Sculpture</span>
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-dark">4.9</span>
-                                </div>
-                            </div>
-                            <h3 class="h6 card-title mb-1">Statuette "Génie protecteur"</h3>
-                            <p class="card-text text-success mb-1">
-                                <span class="text-decoration-line-through text-muted small me-1">35 000 FCFA</span>
-                                29 750 FCFA
-                            </p>
-                            <button class="btn btn-sm btn-vert w-100 mt-2">
-                                <i class="fas fa-cart-plus me-1"></i> Ajouter
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                                <button
+                                    class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
+                                    <i class="far fa-heart"></i>
+                                </button>
 
-                <!-- Produit 3 -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card product-card h-100 border-0 bg-transparent">
-                        <div class="position-relative">
-                            <img src="images/test-picture-local.jpg" class="card-img-top rounded" alt="Collier">
-                            <button
-                                class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <span
-                                class="position-absolute top-0 start-0 bg-danger text-white small p-1 px-2 m-2 rounded">Nouveau</span>
-                        </div>
-                        <div class="card-body px-0 py-2">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small">Bijoux</span>
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-dark">4.7</span>
-                                </div>
+                                @if ($produit->prix_promo && $produit->fin_promo > now())
+                                    <span
+                                        class="position-absolute top-0 start-0 bg-success text-white small p-1 px-2 m-2 rounded">
+                                        -{{ round(100 - ($produit->prix_promo * 100) / $produit->prix) }}%
+                                    </span>
+                                @elseif($produit->created_at->diffInDays(now()) < 7)
+                                    <span
+                                        class="position-absolute top-0 start-0 bg-danger text-white small p-1 px-2 m-2 rounded">Nouveau</span>
+                                @endif
                             </div>
-                            <h3 class="h6 card-title mb-1">Collier en perles de terre cuite</h3>
-                            <p class="card-text text-success mb-1">8 900 FCFA</p>
-                            <button class="btn btn-sm btn-vert w-100 mt-2">
-                                <i class="fas fa-cart-plus me-1"></i> Ajouter
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                            <div class="card-body px-0 py-2">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted small">{{ $produit->categorie->nom }}</span>
+                                    <div class="rating small text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <span class="text-dark">4.8</span>
+                                        <!-- Vous pouvez ajouter un système de notation plus tard -->
+                                    </div>
+                                </div>
+                                <h3 class="h6 card-title mb-1">{{ $produit->nom }}</h3>
 
-                <!-- Produit 4 -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card product-card h-100 border-0 bg-transparent">
-                        <div class="position-relative">
-                            <img src="images/test-picture-local.jpg" class="card-img-top rounded" alt="Panier">
-                            <button
-                                class="btn btn-sm btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="card-body px-0 py-2">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="text-muted small">Vannerie</span>
-                                <div class="rating small text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-dark">4.5</span>
-                                </div>
+                                @if ($produit->prix_promo && $produit->fin_promo > now())
+                                    <p class="card-text text-success mb-1">
+                                        <span
+                                            class="text-decoration-line-through text-muted small me-1">{{ number_format($produit->prix, 0, ',', ' ') }}
+                                            FCFA</span>
+                                        {{ number_format($produit->prix_promo, 0, ',', ' ') }} FCFA
+                                    </p>
+                                @else
+                                    <p class="card-text text-success mb-1">
+                                        {{ number_format($produit->prix, 0, ',', ' ') }} FCFA</p>
+                                @endif
+
+                                <form action="{{ route('cart.add', $produit->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-vert flex-grow-1">
+                                        <i class="fas fa-cart-plus"></i> Ajouter
+                                    </button>
+                                </form>
                             </div>
-                            <h3 class="h6 card-title mb-1">Panier tressé "Femme Adja"</h3>
-                            <p class="card-text text-success mb-1">6 500 FCFA</p>
-                            <button class="btn btn-sm btn-vert w-100 mt-2">
-                                <i class="fas fa-cart-plus me-1"></i> Ajouter
-                            </button>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

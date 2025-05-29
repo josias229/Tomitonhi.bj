@@ -51,10 +51,10 @@ class User extends Authenticatable
     {
         return $this->role === 'artisan';
     }
-    
+
     public function artisan()
     {
-        return $this->hasOne(Artisan::class , 'user_id');
+        return $this->hasOne(Artisan::class, 'user_id');
     }
 
     public function commandes()
@@ -85,5 +85,20 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->hasMany(Notification::class);
+    }
+    // Dans App\Models\User.php
+
+    public function scopeArtisansActifs($query)
+    {
+        return $query->where('role', 'artisan')
+            ->where('statut', 'actif');
+    }
+    public function produitsArtisan()
+    {
+        if ($this->artisan) {
+            return $this->artisan->produits();
+        }
+
+        return null;
     }
 }

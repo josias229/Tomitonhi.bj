@@ -100,11 +100,20 @@ class ProduitController extends Controller
             'fin_promo' => $request->fin_promo,
             'slug' => Str::slug($request->nom) . '-' . uniqid(), // Slug unique
         ]);
-        // Upload des images
-        foreach ($request->file('images') as $image) {
-            $path = $image->store("public/artisans/{$artisan->user_id}/produits");
-            $produit->photos()->create(['url' => $path]);
-        }
+        // NOUVEAU : Génération d'une image de test aléatoire pour les tests
+        // if(app()->environment('local')) {
+        //     $produit->photos()->create([
+        //         'url' => 'https://picsum.photos/600/600?random=' . rand(1, 1000)
+        //     ]);
+        // } 
+        // // En production : upload réel
+        // else {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store("artisans/{$artisan->user_id}/produits", 'public');
+                $path = str_replace("public/", "", $path);
+                $produit->photos()->create(['url' => $path]);
+            }
+        // }
 
         return redirect()->route('gestion-dashArtisan')->with('success', 'Produit créé !');
     }
@@ -112,9 +121,15 @@ class ProduitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    /**
+     * Display the specified product.
+     */
+    public function show(Produit $produit)
     {
-        //
+        // Charge les relations nécessaires
+        $produit->load(['artisan.user', 'categorie', 'photos']);
+
+        return view('produits.show', compact('produit'));
     }
 
     /**

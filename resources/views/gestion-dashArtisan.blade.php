@@ -790,8 +790,13 @@
                                     <h3 class="mb-0">{{ $stats['active'] }}</h3>
                                     <small class="text-muted">
                                         <i class="fas fa-circle me-1 text-warning" style="font-size: 6px;"></i>
-                                        {{ round(($stats['active'] / $stats['total']) * 100) }}% du total
+                                        @if ($stats['total'] > 0)
+                                            {{ round(($stats['active'] / $stats['total']) * 100) }}% du total
+                                        @else
+                                            0% du total
+                                        @endif
                                     </small>
+
                                 </div>
                                 <div class="card-icon bg-warning-light text-warning">
                                     <i class="fas fa-check-circle"></i>
@@ -991,12 +996,9 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($produit->prix_promo)
-                                                Du {{ $produit->debut_promo->format('Y/m/d') }}<br>
-                                                au {{ $produit->fin_promo->format('Y/m/d') }}
-                                                {{-- Du
-                                                {{ \Carbon\Carbon::parse($produit->debut_promo)->format('d/m/Y') }}<br>
-                                                au {{ \Carbon\Carbon::parse($produit->fin_promo)->format('d/m/Y') }} --}}
+                                            @if ($produit->hasActivePromo())
+                                                Du {{ $produit->debut_promo->format('d/m/Y') }}<br>
+                                                au {{ $produit->fin_promo->format('d/m/Y') }}
                                             @else
                                                 -
                                             @endif
@@ -1286,24 +1288,27 @@
                             <div class="col-12">
                                 <label class="form-label">Images actuelles</label>
                                 <div class="d-flex flex-wrap gap-2 mb-3" id="currentImages">
-                                    @foreach ($produit->photos as $photo)
-                                        <div class="position-relative d-inline-block me-2 mb-2">
-                                            <img src="{{ Storage::url($photo->url) }}" width="80"
-                                                class="rounded">
-                                            <form
-                                                action="{{ route('artisan.produits.photos.destroy', [$produit->id, $photo->id]) }}"
-                                                method="POST" class="position-absolute top-0 end-0">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="btn btn-sm btn-danger p-0 rounded-circle"
-                                                    style="width:20px;height:20px;"
-                                                    onclick="return confirm('Supprimer cette image?')">
-                                                    <i class="fas fa-times" style="font-size:10px;"></i>
-                                                </button>
-                                            </form>
-                                        </div>
+                                    @foreach ($produits as $produit)
+                                        @foreach ($produit->photos as $photo)
+                                            <div class="position-relative d-inline-block me-2 mb-2">
+                                                <img src="{{ Storage::url($photo->url) }}" width="80"
+                                                    class="rounded">
+                                                <form
+                                                    action="{{ route('artisan.produits.photos.destroy', [$produit->id, $photo->id]) }}"
+                                                    method="POST" class="position-absolute top-0 end-0">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger p-0 rounded-circle"
+                                                        style="width:20px;height:20px;"
+                                                        onclick="return confirm('Supprimer cette image?')">
+                                                        <i class="fas fa-times" style="font-size:10px;"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endforeach
                                     @endforeach
+
                                 </div>
                             </div>
 
@@ -1518,13 +1523,15 @@
             });
 
             // Add Product Modal
-            const addProductBtn = document.getElementById('addProductBtn');
-            if (addProductBtn) {
-                addProductBtn.addEventListener('click', function() {
+            const addProductBtns = document.querySelectorAll('#addProductBtn');
+
+            addProductBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
                     const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
                     modal.show();
                 });
-            }
+            });
+
         });
     </script>
     <!-- Code injected by live-server -->
